@@ -1,0 +1,9 @@
+<form data-ng-controller='simpleController'>
+<label for='username'> Username: </label>
+<input type='text' data-ng-model='username' data-ng-minlength=3 required>
+<label for='password'> Password: </label>
+<input type='password' data-ng-model='password' data-ng-minglength=6 required>
+<input type='button' data-ng-click='login(username, password)' value='login'>
+</form>
+
+{{ loginStatus }}

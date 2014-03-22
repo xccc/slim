@@ -1,0 +1,43 @@
+doctype html5
+html(data-ng-app='myApp')
+ head
+  link(rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css")
+  link(rel='stylesheet' href='style.css')
+  script(src='/socket.io/socket.io.js')
+  script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js")
+  script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular-route.js")
+  script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js')
+  script(src="//code.jquery.com/ui/1.10.4/jquery-ui.js")
+  script(src='app.js')
+  script(src='directives.js')
+  script(src='simpleController.js');
+  script(src='factories.js');
+ body
+  p paul
+  data-ng-view
+  div(data-ng-controller='simpleController')
+
+   a(href='#login') lol
+   a(href='#test') loxx
+   a(href='#' data-ng-click='localRegister()') register
+   a(href='#' data-ng-click='loginFB()') lofa
+   div(data-ng-show='message')
+    a(href='/registerFB') click here
+    {{ message }}
+   div(data-ng-show='register')
+    p lala
+    form(name='newRegister')
+     input#registerField(type='text' name='username' data-ng-model='username' check-param required placeholder='username')
+     div(data-ng-show='usernameError')
+      p Such username already exists, please pick something else!
+     input#registerField(type='password' ng-model='password1' required placeholder='password' ng-minlength=6)
+     input#registerField(type='password' ng-model='password2' compare-password='password1' required placeholder='repeat password')
+     input#registerField(type='email' data-ng-model='email' check-param required placeholder='email')
+     div(data-ng-show='emailError')
+      p Such email already exists, please pick another one!
+     {{ robots }} 
+     {{ password1 }}
+     button(data-ng-disabled='newRegister.$invalid' data-ng-click='newReg(username, password1, email)') send
+  div#dialog(title='Thank-you!')
+   
+  

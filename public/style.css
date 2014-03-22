@@ -1,0 +1,19 @@
+#registerField {
+
+	display: block;
+	
+	
+}
+
+
+#registerField.ng-invalid.ng-dirty {
+
+	box-shadow: 0 0 9px red inset; 
+
+}
+
+#registerField.ng-valid.ng-dirty {
+
+	box-shadow: 0 0 9px green inset;
+
+}
