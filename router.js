@@ -11,8 +11,11 @@ exports.route = function(app, passport) {
 	app.get('/updatePage', pages.updatePage);
     app.get('/auth/facebook/callback', auth.loginFacebook);
     app.get('/getFBStatus', pages.FBStatus);
+    app.get('/test', pages.test);
+    
 	app.post('/local-register', auth.local_register);
 	app.post('/login', auth.local_login);
 	app.post('/check-email', auth.check_db);
+	
 
 }

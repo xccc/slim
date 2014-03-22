@@ -66,3 +66,14 @@ exports.FBStatus =  function(req, res) {
 }
 
 
+exports.test = function(req, res) {
+	
+	if(req.isAuthenticated()) res.send(req.user + 'lammas oled!');
+	else res.end('ei ole sisse loginud!');
+	
+	
+	
+	
+}
+
+
