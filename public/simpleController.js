@@ -1,5 +1,24 @@
 
 function simpleController($scope,$rootScope, User, $http) {
+		$scope.saveHack = function(title) {
+			console.log(title);
+			
+			$http.post('/hacker', { data: title}).
+				success(function(result) {
+					console.log(result + 'lala');
+				});
+		}
+		
+		$scope.showPosts = function() {
+			
+			
+			$http.get('/Posts').
+				success(function(data) {
+					$scope.emo = data;
+					console.log(data + 'mari');
+				});
+				
+		}
 		
 		$scope.newReg = function(username, password, email) {
 			

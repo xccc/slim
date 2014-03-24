@@ -12,7 +12,9 @@ exports.route = function(app, passport) {
     app.get('/auth/facebook/callback', auth.loginFacebook);
     app.get('/getFBStatus', pages.FBStatus);
     app.get('/test', pages.test);
+    app.get('/Posts', pages.allPosts);
     
+    app.post('/hacker', pages.hacker);
 	app.post('/local-register', auth.local_register);
 	app.post('/login', auth.local_login);
 	app.post('/check-email', auth.check_db);

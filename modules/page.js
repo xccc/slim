@@ -1,11 +1,56 @@
 var FbTemp = require('./tempUsers');
-	var Users = require('./Users');
+var Users = require('./Users');
+var csrf = require('./csrf');
 exports.index = function(req, res) {
 	
-	console.log(req.isAuthenticated());
-	if(req.user) console.log(req.user.username);
+	
+	
+		if(req.isAuthenticated())  res.render('index.jade', { user: req.user, token: csrf.key(req.user.username) });
+		else res.render('index.jade', { user: req.user });
+		
+	
+	
+	
+}
+	var mongoose = require('mongoose');
+	
+	var newSchema = new mongoose.Schema({
+		title: String,
+		author: String
+	});
+	var newData = mongoose.model('Hack', newSchema);
+	
+	
+exports.allPosts = function(req, res) {
+	console.log('gotcha!');
 
-		res.render('index.jade');
+	
+	newData.find({}, function(err, data) {
+		
+		if(err) throw err
+		res.send(data);
+	});
+	
+	
+	
+	
+	
+}
+
+exports.hacker = function(req, res) {
+	
+	console.log(req.body.data);
+	
+	
+	var insertNew = new newData({
+		title: req.body.data,
+		author: req.user.username
+	});
+	insertNew.save(function(err) {
+		if(err) throw err
+		console.log('added!');
+	})
+	res.send('im done here!');
 	
 	
 	

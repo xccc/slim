@@ -16,7 +16,16 @@ html(data-ng-app='myApp')
   p paul
   data-ng-view
   div(data-ng-controller='simpleController')
-
+   div(data-ng-init='showPosts()')
+   if token
+    p #{ token }
+   div(data-ng-repeat='post in emo')
+     {{ post }}
+   div(data-ng-show='loggedIn')
+    form()
+     input(type='text' ng-model='title')
+     button(data-ng-click='saveHack(title)') Unleash the beast
+     
    a(href='#login') lol
    a(href='#test') loxx
    a(href='#' data-ng-click='localRegister()') register
@@ -39,5 +48,4 @@ html(data-ng-app='myApp')
      {{ password1 }}
      button(data-ng-disabled='newRegister.$invalid' data-ng-click='newReg(username, password1, email)') send
   div#dialog(title='Thank-you!')
-   
   

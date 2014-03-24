@@ -15,6 +15,8 @@ myApp.factory('User', function($http,$rootScope ) {
 					alert('yay');
 					$rootScope.loginStatus = '';
 					$rootScope.isLogged = 'true';
+					$rootScope.loggedIn = true;
+					// display user menus and login name etc
 				}  
 			        else $rootScope.loginStatus = 'Invalid login'	
 				
