@@ -4,7 +4,8 @@ userSchema = new mongoose.Schema({
 	   email: String,
 	   username: String,
 	   password: String,
-	   reg_date: { type: Date, default: Date.now() }
+	   reg_date: { type: Date, default: Date.now() },
+	   userLevel: { type: String, default: 1 }
 	   
 	
    });

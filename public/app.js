@@ -1,5 +1,4 @@
 
-	
 var myApp = angular.module('myApp', ['ngRoute']);
 
 
@@ -13,7 +12,6 @@ var myApp = angular.module('myApp', ['ngRoute']);
 			
 		});
 		$routeProvider.when('/login', {
-			template: 'gai',
 			controller: simpleController,
 			
 		});
@@ -26,6 +24,15 @@ var myApp = angular.module('myApp', ['ngRoute']);
 			templateUrl: '/auth/facebook/callback'
 		});
 		
+		$routeProvider.when('/admin', {
+			templateUrl: '/admin2.jade',
+			controller: adminController
+		});
+		
+		$routeProvider.when('/admin/news', {
+			templateUrl: '/adminNews.jade',
+			controller: adminController
+		})
 	
 });
 

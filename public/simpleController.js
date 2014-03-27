@@ -1,24 +1,53 @@
 
 function simpleController($scope,$rootScope, User, $http) {
-		$scope.saveHack = function(title) {
-			console.log(title);
+	$rootScope.haxx = function() {
+		
+		if(!$rootScope.securityToken) $rootScope.securityToken = $('#securityToken').val();
+		
+		$http.post('/whoami').success(function(data) {
+			var toArray = data.link.split(',');
+			var hashTag = [];
 			
-			$http.post('/hacker', { data: title}).
+			for(key in toArray) {
+				//hashTag[toArray[key][
+				var exploit = toArray[key].split(':');
+				hashTag.push(exploit);
+				
+			}
+		
+		
+				
+				if(data.act == 'OK') { 
+					
+					$scope.loggedIn = !$scope.loggedIn;
+					$rootScope.links = hashTag
+					$rootScope.showLogin = false;
+				}
+				else {
+					
+					 $rootScope.links = hashTag;
+					 $rootScope.showLogin = true;
+				 }
+				
+				
+			});
+	
+		
+		
+	}
+	
+	
+		$scope.saveHack = function(title) {
+			
+			
+			
+			$http.post('/hacker', { data: title, security_token: $rootScope.securityToken }).
 				success(function(result) {
 					console.log(result + 'lala');
 				});
 		}
 		
-		$scope.showPosts = function() {
-			
-			
-			$http.get('/Posts').
-				success(function(data) {
-					$scope.emo = data;
-					console.log(data + 'mari');
-				});
-				
-		}
+		
 		
 		$scope.newReg = function(username, password, email) {
 			

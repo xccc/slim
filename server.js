@@ -12,7 +12,7 @@ mongoose.connect('mongodb://localhost:27017/nodetest1');
 	
 
 
-
+console.log(__dirname);
 
 
 app.use(express.cookieParser());
@@ -20,7 +20,7 @@ app.use(express.bodyParser());
 app.use(express.static(__dirname + '/public'));
 app.use(express.session({ secret: 'laalkfwofw', cookie:  {
 	securet: true,
-	maxAge: 60*1000 } } ));
+	maxAge: 20*60*1000 } } ));
 app.use(passport.initialize());
 app.use(passport.session());
 

@@ -1,18 +1,10 @@
 var FbTemp = require('./tempUsers');
 var Users = require('./Users');
 var csrf = require('./csrf');
-exports.index = function(req, res) {
-	
-	
-	
-		if(req.isAuthenticated())  res.render('index.jade', { user: req.user, token: csrf.key(req.user.username) });
-		else res.render('index.jade', { user: req.user });
-		
-	
-	
-	
-}
-	var mongoose = require('mongoose');
+var Pages = require('./Pagesk');
+var Posts = require('./Posts');
+
+var mongoose = require('mongoose');
 	
 	var newSchema = new mongoose.Schema({
 		title: String,
@@ -21,6 +13,56 @@ exports.index = function(req, res) {
 	var newData = mongoose.model('Hack', newSchema);
 	
 	
+exports.index = function(req, res) {
+
+
+		if(req.isAuthenticated()) {
+		
+		csrf.key(req.user.username, function(key)  {
+			res.render('index.jade', { token: key });
+		});
+	} else res.render('index.jade');
+		
+		
+		
+		
+	
+	
+	
+}
+exports.view_news = function(req, res) {
+	
+	Posts.find({}, function(err, result) {
+		if(err) throw err
+		console.log(result);
+		res.send(result);
+	});
+	
+	
+
+}	
+exports.news = function(req, res) {
+	
+	csrf.key(req.user.username, function(key)  {
+			res.render('index.jade', { token: key });
+		});
+	
+	
+	
+}
+
+	
+exports.admin = function(req, res) {
+	
+		
+		csrf.key(req.user.username, function(key)  {
+			res.render('index.jade', { token: key });
+		});
+
+}
+
+
+
 exports.allPosts = function(req, res) {
 	console.log('gotcha!');
 
@@ -37,24 +79,7 @@ exports.allPosts = function(req, res) {
 	
 }
 
-exports.hacker = function(req, res) {
-	
-	console.log(req.body.data);
-	
-	
-	var insertNew = new newData({
-		title: req.body.data,
-		author: req.user.username
-	});
-	insertNew.save(function(err) {
-		if(err) throw err
-		console.log('added!');
-	})
-	res.send('im done here!');
-	
-	
-	
-}
+
 
 
 exports.registerFB = function(req, res) {
@@ -120,5 +145,9 @@ exports.test = function(req, res) {
 	
 	
 }
+
+
+
+
 
 

@@ -27,7 +27,24 @@ myApp.directive('comparePassword', function() {
 	}
 });
 
-
+myApp.directive('news',  function() {
+	return {
+		link: function(scope) {
+			
+			scope.getNews();
+		}
+	}
+});
+myApp.directive('userLevel', function($http, $rootScope) {
+	return {
+		
+		link: function(scope) {
+			// see if user is loggedin and load links
+			scope.haxx();
+}
+	
+	}
+})
 myApp.directive('checkParam', function($http) {
 	
 	return {
@@ -43,7 +60,7 @@ myApp.directive('checkParam', function($http) {
 				
 				$http.post('/check-email', data ).
 					success(function(data) {
-						console.log(data);
+					
 						if(data == 'username_exists')  {
 							scope.usernameError = true;
 							ctrl.$setValidity('unique', false);
@@ -56,7 +73,7 @@ myApp.directive('checkParam', function($http) {
 							 
 						 }
 						 else {
-							 console.log('called me!');
+						
 							 if(attr.ngModel == 'username' && scope.usernameError == true) { 
 								  ctrl.$setValidity('unique', true);
 								  scope.usernameError = false;

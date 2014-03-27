@@ -1,0 +1,23 @@
+<div data-ng-controller='adminController'>
+
+<a href='/admin/news'> Show news</a>
+<a href='#' data-ng-click='addPost()'> Add new post </a>
+
+
+<div news>
+
+{{ updateMessage }}
+{{ deleteMessage }}
+
+<span ng-repeat='post in newPost'>
+
+<p>{{ post.title }} - <a href='#' id='edit' ng-click="editPost(post._id, post.title, post.post)">Edit</a> - <a href='#' ng-click="deletePost(post._id)">Delete</a></p>
+
+
+
+</span>
+</div>
+<div id='dialog-form' title='Edit news' style='display: none;'></div>
+<div id='delete-dialog' title='Delete news'></div>
+<div id='add-dialog' title='Add post'></div>
+</div>

@@ -8,26 +8,25 @@ html(data-ng-app='myApp')
   script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular-route.js")
   script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js')
   script(src="//code.jquery.com/ui/1.10.4/jquery-ui.js")
-  script(src='app.js')
-  script(src='directives.js')
-  script(src='simpleController.js');
-  script(src='factories.js');
+  script(src='/app.js')
+  script(src='/directives.js')
+  script(src='/simpleController.js');
+  script(src='/adminController.js');
+  script(src='/factories.js');
  body
-  p paul
+  
   data-ng-view
-  div(data-ng-controller='simpleController')
+  div(data-ng-controller='simpleController' user-level)
+   div(data-ng-repeat='link in links')
+    a(href='{{ link[0] }}') {{ link[1] }}
    div(data-ng-init='showPosts()')
    if token
-    p #{ token }
-   div(data-ng-repeat='post in emo')
-     {{ post }}
-   div(data-ng-show='loggedIn')
-    form()
-     input(type='text' ng-model='title')
-     button(data-ng-click='saveHack(title)') Unleash the beast
-     
-   a(href='#login') lol
-   a(href='#test') loxx
+    input(type='hidden' id='securityToken' value=token.session_id)
+   
+    
+  
+
+ 
    a(href='#' data-ng-click='localRegister()') register
    a(href='#' data-ng-click='loginFB()') lofa
    div(data-ng-show='message')

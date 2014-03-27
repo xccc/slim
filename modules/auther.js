@@ -1,6 +1,9 @@
 var passport = require('passport');
 var Users = require('./Users');
 var encrypter = require('./enc');
+var csrf = require('./csrf');
+var Pagesk = require('./Pagesk');
+
 
 exports.local_login = function(req, res) {
 	
@@ -10,7 +13,8 @@ exports.local_login = function(req, res) {
 		else  {
 			req.login(user, function(err) {
 				if(err) throw err
-				res.send('OK');
+				res.send(csrf.protect(user.username));
+				
 				
 			});
 			
