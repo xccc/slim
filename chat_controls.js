@@ -2,6 +2,7 @@ var User = require('./session_schema.js');
 var server = require('./chat_server.js');
 var admin_passwod = 'kdwodkjijr930ur30jif'; // to login as admin
 var conf = require('./chat_fn');
+
 	
 exports.logged_in = function(nick) {
 	
