@@ -2,7 +2,10 @@ var User = require('./session_schema.js');
 var server = require('./chat_server.js');
 var admin_passwod = 'kdwodkjijr930ur30jif'; // to login as admin
 var conf = require('./chat_fn');
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0cc0b5e... Simple facebook like chat-system where user can communicate with administrator
 	
 exports.logged_in = function(nick) {
 	
