@@ -8,3 +8,10 @@ var sessionSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Userkeks', sessionSchema);
+
+
+
+
+
+
+
