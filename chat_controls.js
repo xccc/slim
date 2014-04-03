@@ -2,10 +2,6 @@ var User = require('./session_schema.js');
 var server = require('./chat_server.js');
 var admin_passwod = 'kdwodkjijr930ur30jif'; // to login as admin
 var conf = require('./chat_fn');
-<<<<<<< HEAD
-
-=======
->>>>>>> 0cc0b5e... Simple facebook like chat-system where user can communicate with administrator
 	
 exports.logged_in = function(nick) {
 	
@@ -17,11 +13,10 @@ exports.logged_in = function(nick) {
 				// if there is no such user send client error response
 		 if(!result) server.io.emit('logIn', { message: 'no_auth' });
 				// tell user he can continue
-		 else { server.io.emit('logIn', { 
-				
-				message: 'auth' });
-				server.io.join(nick.username);
-					// add user into his private room
+		 else { server.io.emit('logIn', { message: 'auth' });
+		 
+		 server.io.join(nick.username);
+			
 		}
 	});
 	
@@ -31,7 +26,8 @@ exports.logged_in = function(nick) {
 exports.admin_message = function(data) {
 		
 	// private message to user from admin
-	server.io.broadcast.to(data.nick).emit('recv', {msg: data.message });
+	
+		server.fix.sockets.in(data.nick).emit('recv_admin', { user: data.nick, msg: data.message });
 	
 };
 	// let user know if admin is online or offline
@@ -40,9 +36,9 @@ exports.admin_status = function() {
 	
 		User.findOne({ admin: true }, function(err, result) {
 			if(err) throw err
-		
-			var status = (result.admin == true) ? 'Online' : 'offline';
-			server.io.emit('admin_status', { admin: status });
+			if(result == null) return server.io.emit('admin_status', { admin: 'Offline' });
+			
+			server.io.emit('admin_status', { admin: 'Online' });
 	});
 	
 	
@@ -57,6 +53,7 @@ exports.admin_offline = function(pass) {
 			if(err) throw err;
 					// let users know admin has signed off.
 			server.io.broadcast.emit('admin_status', { admin: 'Offline' });
+			server.io.leave('admin');
 		});
 }
 	
@@ -67,21 +64,24 @@ exports.admin_offline = function(pass) {
 exports.admin_login = function(pass) {
 	
 	
-	
 	if(pass.pwd == admin_passwod) {
 			
 			// add admin to his own room
 		server.io.join('admin');
-		server.io.broadcast.emit('admin_status', { admin: 'online' }); // change admin status to Online
+		
+		server.io.broadcast.emit('admin_status', { admin: 'Online' }); // change admin status to Online
 		
 		// update admin status in database also
 	 User.update({ admin: false }, { admin: true },function(err, result) {
 			if(err) throw err;
 			
+				console.log(result);
 			
 		});
 }
 	
+	console.log(pass.pwd + 'LLLLLLLLLLLLLLLLLLLLLLl');
+	console.log(server.io.manager.rooms);
 	
 
 	
@@ -119,12 +119,14 @@ exports.message = function(data) {
 			// see if user actually exists.
 		User.findOne({ sessionname: username }, function(err, res) {
 			if(err) throw err
-			if(!res) server.io.emit('logIn', { message: 'no_auth' }); // re-register user, something has gone sour
+			if(!res) return server.io.emit('logIn', { message: 'no_auth' }); // re-register user, something has gone sour
 			
+		
 			
 					// send message to admin
-			server.io.broadcast.to('admin').emit('recv', { nick: username, msg: message });
-			
+		
+		server.fix.sockets.emit('recv', { nick: username, msg: message });
+		
 		
 	});
 

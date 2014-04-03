@@ -4,16 +4,16 @@ var chat = require('./chat_controls.js');
 var User = require('./session_schema.js');
 mongoose.connect('mongodb://localhost:27017/nodetest1');
 
+exports.fix = socket; // glitch fix
 
 
-
-socket.sockets.on('connection', function(socket) {
+ socket.sockets.on('connection', function(socket) {
 	
 	exports.io = socket; // for emiting signals from control page.
 
 	socket.on('logged_in', chat.logged_in);
 	socket.on('admin_message', chat.admin_message);
-	
+
 	
 
 	socket.on('new_user',  chat.new_user);
@@ -24,7 +24,6 @@ socket.sockets.on('connection', function(socket) {
  	socket.on('admin_login', chat.admin_login);
  	
 });
-
 
 
 
